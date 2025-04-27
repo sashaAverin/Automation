@@ -13,9 +13,6 @@ service = Service(executable_path=ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=options)
 wait = WebDriverWait(driver, 15, poll_frequency=1)
 
-# открытие страницы
-driver.get("https://demo.automationtesting.in/WebTable.html")
-
 # локаторы
 SWITCH_TO = ("xpath", "//a[text()='SwitchTo']")
 ALERT_LINK = ("xpath", "//a[text()='Alerts']")
@@ -24,6 +21,11 @@ ALERT_CALL_BUTTON = ("xpath", "//button[contains(@class, 'btn-danger')]")
 ALERT_CANCEL_CALL_BUTTON = ("xpath", "//button[contains(@class, 'btn-primary')]")
 ALERT_TEXT_LINK = ("xpath", "//a[text()='Alert with Textbox ']")
 ALERT_TEXT_CALL_BUTTON = ("xpath", "//button[contains(@class, 'btn-info')]")
+
+BASE_URL = "https://demo.automationtesting.in/WebTable.html"
+
+# открытие страницы
+driver.get(BASE_URL)
 
 wait.until(EC.element_to_be_clickable(SWITCH_TO)).click()
 wait.until(EC.element_to_be_clickable(ALERT_LINK)).click()

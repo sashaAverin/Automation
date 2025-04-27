@@ -18,9 +18,6 @@ wait = WebDriverWait(driver, 15, poll_frequency=1)
 
 driver.implicitly_wait(10)
 
-# открытие страницы
-driver.get("https://demo.automationtesting.in/WebTable.html")
-
 # локаторы
 MORE_LINK = ("xpath", "//a[text()='More']") # ссылка more в меню навигации сайта
 JQUERY_LINK = ("xpath", "//a[text()='JQuery ProgressBar']") # ссылка jquery progressbar в выпадающем списке more
@@ -29,16 +26,22 @@ CANCEL_DOWNLOAD_BUTTON = ("xpath", "//button[text()='Cancel Download']") # кн�
 COMPLETE_TEXT = ("xpath", "//div[@class='progress-label']") # текст подтверждения успешной загрузки
 CLOSE_BUTTON = ("xpath", "//button[text()='Close']") # кнопка закрытия окна загрузки
 
-moreLink = driver.find_element(*MORE_LINK)
-moreLink.click()
+BASE_URL = "https://demo.automationtesting.in/WebTable.html"
 
-jQueryLink = driver.find_element(*JQUERY_LINK)
-jQueryLink.click()
+# открытие страницы
+driver.get(BASE_URL)
+
+more_link = driver.find_element(*MORE_LINK)
+more_link.click()
+
+jquery_link = driver.find_element(*JQUERY_LINK)
+jquery_link.click()
+
 # явное ожидание, что кнопка "close" невидима
 wait.until(EC.invisibility_of_element_located(CLOSE_BUTTON))
 
-startDownload = driver.find_element(*START_DOWNLOAD_BUTTON)
-startDownload.click()
+start_download = driver.find_element(*START_DOWNLOAD_BUTTON)
+start_download.click()
 
 wait.until(EC.text_to_be_present_in_element(CANCEL_DOWNLOAD_BUTTON, "Cancel Download"))
 driver.find_element(*CANCEL_DOWNLOAD_BUTTON).click()

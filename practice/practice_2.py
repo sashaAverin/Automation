@@ -15,9 +15,6 @@ driver = webdriver.Chrome(service=service, options=options)
 
 driver.implicitly_wait(10) # используем неявное ожидание
 
-# открытие страницы
-driver.get("https://demo.automationtesting.in/WebTable.html")
-
 # локаторы
 MORE_LINK = ("xpath", "//a[text()='More']") # ссылка more в меню навигации сайта
 DYNAMIC_LINK = ("xpath", "//a[text()='Dynamic Data']") # ссылка dynamic data в выпадающем списке more
@@ -25,19 +22,24 @@ TITLE = ("xpath", "//h3") # заголовок страницы
 GET_BUTTON = ("xpath", "//button[@id='save']") # кнопка получения данных
 IMG = ("xpath", "//div[@id='loading']/img") # получаемое изображение
 
-moreLink = driver.find_element(*MORE_LINK)
-moreLink.click()
+BASE_URL = "https://demo.automationtesting.in/WebTable.html"
 
-dynamicLink = driver.find_element(*DYNAMIC_LINK)
-dynamicLink.click()
+# открытие страницы
+driver.get(BASE_URL)
 
-titleText = driver.find_element(*TITLE).text
-assert titleText == "Loading the data Dynamically", "Текст заголовка не соответствует ожидаемому"
+more_link = driver.find_element(*MORE_LINK)
+more_link.click()
 
-getDynamicData = driver.find_element(*GET_BUTTON)
-getDynamicData.click()
+dynamic_link = driver.find_element(*DYNAMIC_LINK)
+dynamic_link.click()
 
-imgLink = driver.find_element(*IMG).get_attribute("src")
-print(imgLink)
+title_text = driver.find_element(*TITLE).text
+assert title_text == "Loading the data Dynamically", "Текст заголовка не соответствует ожидаемому"
+
+get_dynamic_data = driver.find_element(*GET_BUTTON)
+get_dynamic_data.click()
+
+img_link = driver.find_element(*IMG).get_attribute("src")
+print(img_link)
 
 

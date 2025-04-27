@@ -16,15 +16,17 @@ service = Service(executable_path=ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=options)
 wait = WebDriverWait(driver, 15, poll_frequency=1)
 
-# открытие страницы
-driver.get("https://demo.automationtesting.in/WebTable.html")
-
 # локаторы
 MORE_LINK = ("xpath", "//a[text()='More']") # ссылка more в меню навигации сайта
 LOADER_LINK = ("xpath", "//a[text()='Loader']") # ссылка loader в выпадающем списке more
 RUN_BUTTON = ("xpath", "//button[@id='loader']") # кнопка для вызова окна с текстом
 MODAL_TEXT = ("xpath", "//div[@class='modal-body']/p") # контейнер с текстом
 SAVE_BUTTON = ("xpath", "//button[text()='Save changes']") # кнопка сохранения
+
+BASE_URL = "https://demo.automationtesting.in/WebTable.html"
+
+# открытие страницы
+driver.get(BASE_URL)
 
 wait.until(EC.element_to_be_clickable(MORE_LINK)).click()
 wait.until(EC.element_to_be_clickable(LOADER_LINK)).click()

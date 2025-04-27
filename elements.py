@@ -15,9 +15,6 @@ service = Service(executable_path=ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=options)
 wait = WebDriverWait(driver, 15, poll_frequency=1)
 
-# открытие страницы
-driver.get("https://demo.us.espocrm.com/")
-
 # локаторы
 SELECT = ("xpath", "//select[@id='field-language']")
 LOGIN_BUTTON = ("xpath", "//button[@id='btn-login']")
@@ -40,6 +37,11 @@ FIRST_TASK_CHECKBOX = ("xpath", "//tr[@class='list-row '][1]//input")
 REMOVE = ("xpath", "//div[contains(@class, 'open')]//li[1]")
 TIME_SLEEP = ("xpath", "//button[text()='Edit']")
 
+BASE_URL = "https://demo.us.espocrm.com/"
+
+# открытие страницы
+driver.get(BASE_URL)
+
 dropdown = Select(wait.until(EC.element_to_be_clickable(SELECT)))
 dropdown.select_by_visible_text("English (UK)")
 
@@ -51,16 +53,16 @@ wait.until(EC.element_to_be_clickable(SELECT_ALL)).click()
 wait.until(EC.element_to_be_clickable(ACTIONS_BUTTON)).click()
 wait.until(EC.element_to_be_clickable(MASS_UPDATE)).click()
 wait.until(EC.visibility_of_element_located(UPDATE_DISABLED))
-updateBtnStatus = driver.find_element(*UPDATE_DISABLED).get_attribute("disabled")
-assert updateBtnStatus == "true"
+update_btn_status = driver.find_element(*UPDATE_DISABLED).get_attribute("disabled")
+assert update_btn_status == "true"
 
 driver.find_element(*CLOSE_ICON).click()
 driver.find_element(*CREATE_TASK_BUTTON).click()
 
 wait.until(EC.element_to_be_clickable(NAME_FIELD)).send_keys("Test")
 
-statusFieldCheck = driver.find_element(*STATUS_FIELD).get_attribute("value")
-assert statusFieldCheck == "Not Started"
+status_field_check = driver.find_element(*STATUS_FIELD).get_attribute("value")
+assert status_field_check == "Not Started"
 driver.find_element(*SAVE_BUTTON).click()
 wait.until(EC.visibility_of_element_located(TIME_SLEEP))
 wait.until(EC.element_to_be_clickable(TASKS_LINK)).click()

@@ -19,12 +19,6 @@ wait = WebDriverWait(driver, 15, poll_frequency=1)
 action = ActionChains(driver)
 scrolls = Scrolls(driver, action)
 
-# открытие страницы
-driver.get("https://demo.automationtesting.in/Register.html")
-
-url = driver.current_url
-assert url == "https://demo.automationtesting.in/Register.html", "URL страницы, на которой вы находитесь не верный"
-
 # локаторы
 FIRST_NAME_FIELD = ("xpath", "//input[@placeholder='First Name']")
 LAST_NAME_FIELD = ("xpath", "//input[@placeholder='Last Name']")
@@ -39,6 +33,14 @@ DAY_FIELD = ("xpath", "//select[@id='daybox']")
 UPLOAD_FIELD = ("xpath", "//input[@id='imagesrc']")
 SUBMIT_BUTTON = ("xpath", "//button[@id='submitbtn']")
 
+BASE_URL = "https://demo.automationtesting.in/Register.html"
+
+# открытие страницы
+driver.get(BASE_URL)
+
+url = driver.current_url
+assert url == "https://demo.automationtesting.in/Register.html", "URL страницы, на которой вы находитесь не верный"
+
 wait.until(EC.element_to_be_clickable(FIRST_NAME_FIELD)).send_keys("Sasha")
 driver.find_element(*LAST_NAME_FIELD).send_keys("Averin")
 driver.find_element(*EMAIL_FIELD).send_keys("test.mail@gmail.com")
@@ -47,12 +49,12 @@ driver.find_element(*PASSWORD_FIELD).send_keys("Nimbus2000")
 driver.find_element(*PASSWORD_CONFIRM_FIELD).send_keys("Nimbus2000")
 country = Select(driver.find_element(*COUNTRY_FIELD))
 country.select_by_visible_text("Japan")
-yearOfBirth = Select(driver.find_element(*YEAR_FIELD))
-yearOfBirth.select_by_visible_text("1996")
-monthOfBirth = Select(driver.find_element(*MONTH_FIELD))
-monthOfBirth.select_by_value("January")
-dayOfBirth = Select(driver.find_element(*DAY_FIELD))
-dayOfBirth.select_by_index(15)
+year_of_birth = Select(driver.find_element(*YEAR_FIELD))
+year_of_birth.select_by_visible_text("1996")
+month_of_birth = Select(driver.find_element(*MONTH_FIELD))
+month_of_birth.select_by_value("January")
+day_of_birth = Select(driver.find_element(*DAY_FIELD))
+day_of_birth.select_by_index(15)
 driver.find_element(*UPLOAD_FIELD).send_keys(f"{os.getcwd()}/avatar.png")
 driver.execute_script("window.scrollTo(0, 300);")
 driver.find_element(*SUBMIT_BUTTON).click()
